@@ -17,6 +17,8 @@ export const KnittingGrid = () => {
   );
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const [showFloatingBall, setShowFloatingBall] = useState(false);
+  const [isMouseDown, setIsMouseDown] = useState(false);
+  const [isRightClick, setIsRightClick] = useState(false);
 
   // Handle cursor movement
   useEffect(() => {
@@ -26,8 +28,25 @@ export const KnittingGrid = () => {
       }
     };
 
+    const handleMouseUp = () => {
+      setIsMouseDown(false);
+      setIsRightClick(false);
+    };
+
+    const handleMouseLeave = () => {
+      setIsMouseDown(false);
+      setIsRightClick(false);
+    };
+
     window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mouseup", handleMouseUp);
+    window.addEventListener("mouseleave", handleMouseLeave);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseup", handleMouseUp);
+      window.removeEventListener("mouseleave", handleMouseLeave);
+    };
   }, [showFloatingBall]);
 
   const handleColorSelect = (color: string) => {
@@ -71,21 +90,34 @@ export const KnittingGrid = () => {
     }
   };
 
-  const handleCellClick = (row: number, col: number, e: React.MouseEvent) => {
-    e.preventDefault(); // Prevent default context menu
-
+  const colorCell = (row: number, col: number, isRightClick: boolean) => {
     setGridCells((prev) => {
       const newGrid = [...prev];
       newGrid[row] = [...newGrid[row]];
-      if (e.button === 2) {
-        // Right click
-        newGrid[row][col] = { color: "white" };
-        setShowFloatingBall(false);
-      } else {
-        newGrid[row][col] = { color: selectedColor };
-      }
+      newGrid[row][col] = {
+        color: isRightClick ? "white" : selectedColor,
+      };
       return newGrid;
     });
+  };
+
+  const handleCellClick = (row: number, col: number, e: React.MouseEvent) => {
+    e.preventDefault(); // Prevent default context menu
+    const rightClick = e.button === 2;
+    setIsMouseDown(true);
+    setIsRightClick(rightClick);
+
+    if (rightClick) {
+      setShowFloatingBall(false);
+    }
+
+    colorCell(row, col, rightClick);
+  };
+
+  const handleCellHover = (row: number, col: number) => {
+    if (isMouseDown) {
+      colorCell(row, col, isRightClick);
+    }
   };
 
   const handleReset = () => {
@@ -140,8 +172,9 @@ export const KnittingGrid = () => {
               backgroundColor: gridCells[row][col].color,
               padding: cellPadding,
             }}
-            onClick={(e) => handleCellClick(row, col, e)}
-            onContextMenu={(e) => handleCellClick(row, col, e)}
+            onMouseDown={(e) => handleCellClick(row, col, e)}
+            onMouseEnter={() => handleCellHover(row, col)}
+            onContextMenu={(e) => e.preventDefault()}
           />
         );
       }
