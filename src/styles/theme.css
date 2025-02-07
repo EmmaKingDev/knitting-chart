@@ -1,0 +1,33 @@
+:root {
+  --font-heading: "Rubik Bubbles", system-ui;
+  --font-main: "Zain", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+  --font-sans: "IBM Plex Sans", sans-serif;
+
+  --fw-light: 300;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+  --fw-extrabold: 800;
+  --fw-black: 900;
+
+  --color-primary: #f2bbae; /* Main text, headers, important UI elements */
+  --color-secondary: #bf8069; /* Secondary elements, buttons */
+  --color-accent: #e8d4c6; /* Hover states, highlights */
+  --color-dark: #000; /* Subtle accents, borders */
+  --color-background: #f2f2f2; /* Main background */
+
+  --text-primary: var(--color-primary);
+  --text-secondary: var(--color-secondary);
+  --background-main: var(--color-background);
+  --background-accent: var(--color-dark);
+  --border-color: var(--color-dark);
+
+  --hover-primary: #e8d4c6;
+  --hover-secondary: #b48e7a;
+
+  --shadow-sm: 0 1px 2px rgba(100, 121, 140, 0.1);
+  --shadow-md: 0 2px 4px rgba(100, 121, 140, 0.15);
+  --shadow-lg: 0 4px 6px rgba(100, 121, 140, 0.2);
+}

@@ -1,0 +1,46 @@
+.color-picker {
+  width: 100%;
+  max-width: 600px;
+  background: var(--background-main);
+  padding: 2rem;
+  border-radius: 8px;
+  margin: 0.1rem auto;
+}
+
+.color-grid {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.color-column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.color-button {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.color-button:hover {
+  transform: scale(1.1);
+  box-shadow: var(--shadow-md);
+}
+
+.color-button:focus {
+  outline: 2px solid white;
+  outline-offset: 2px;
+}
+
+.color-button.selected {
+  transform: scale(1.1);
+}

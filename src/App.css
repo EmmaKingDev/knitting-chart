@@ -1,7 +1,42 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
+@import "./styles/theme.css";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--background-main);
+  color: var(--text-primary);
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-width: 100%;
+  overflow-x: hidden;
+  font-family: var(--font-main);
+  font-weight: var(--fw-regular);
+  letter-spacing: 0.02em;
+}
+
+.app {
+  min-height: 100vh;
+  width: 100%;
+  min-width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+.main-content {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   padding: 2rem;
+  box-sizing: border-box;
 }
 
 h1 {
@@ -12,26 +47,12 @@ h1 {
   padding: 0;
   text-align: center;
   letter-spacing: 0.01em;
-  color: #9d8cba;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease;
+  color: var(--color-primary);
 }
 
 h1:hover {
   transform: scale(1.02);
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  color: var(--hover-primary);
 }
 
 @keyframes logo-spin {
@@ -49,8 +70,45 @@ h1:hover {
   }
 }
 
+/* Base button styles */
+.btn {
+  padding: 0.6em 1.2em;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font-size: 0.9em;
+  font-weight: var(--fw-medium);
+  font-family: var(--font-main);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: var(--color-background);
+}
+
+.btn-primary:hover {
+  background-color: var(--hover-primary);
+}
+
+.btn-secondary {
+  background-color: var(--color-secondary);
+  color: var(--color-background);
+}
+
+.btn-secondary:hover {
+  background-color: var(--hover-secondary);
+}
+
+/* Card component */
 .card {
   padding: 2em;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-color);
 }
 
 .read-the-docs {
