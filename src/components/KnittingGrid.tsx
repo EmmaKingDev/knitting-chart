@@ -7,13 +7,13 @@ interface GridCell {
 }
 
 export const KnittingGrid = () => {
-  const [gridWidth, setGridWidth] = useState(60);
-  const [gridHeight, setGridHeight] = useState(40);
+  const [gridWidth, setGridWidth] = useState(20);
+  const [gridHeight, setGridHeight] = useState(20);
   const [selectedColor, setSelectedColor] = useState("#ffffff");
   const [gridCells, setGridCells] = useState<GridCell[][]>(() =>
-    Array(40)
+    Array(20)
       .fill(null)
-      .map(() => Array(60).fill({ color: "white" }))
+      .map(() => Array(20).fill({ color: "white" }))
   );
 
   const handleWidthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,24 +65,58 @@ export const KnittingGrid = () => {
     });
   };
 
+  const handleReset = () => {
+    // Reset all cells to white
+    setGridCells(
+      Array(gridHeight)
+        .fill(null)
+        .map(() => Array(gridWidth).fill({ color: "white" }))
+    );
+  };
+
   const getCellSize = () => {
     if (gridWidth <= 10 && gridHeight <= 10) {
-      return 25;
+      return 40; // Larger cells for small grids
     } else if (gridWidth <= 30 && gridHeight <= 30) {
-      return 20;
+      return 30; // Medium cells for medium grids
     }
-    return 15;
+    return 25; // Smaller cells for large grids
+  };
+
+  const getSpacing = () => {
+    if (gridWidth <= 10 && gridHeight <= 10) {
+      return {
+        gap: "1px",
+        padding: "15px",
+        cellPadding: "15px",
+      };
+    } else if (gridWidth <= 32 && gridHeight <= 30) {
+      return {
+        gap: "0.5px",
+        padding: "10px",
+        cellPadding: "10px",
+      };
+    }
+    return {
+      gap: "0.2px",
+      padding: "5px",
+      cellPadding: "5px",
+    };
   };
 
   const renderGridCells = () => {
     const cells = [];
-    for (let row = 0; row < gridHeight; row++) {
-      for (let col = 0; col < gridWidth; col++) {
-        cells.unshift(
+    const { cellPadding } = getSpacing();
+    for (let col = 0; col < gridWidth; col++) {
+      for (let row = 0; row < gridHeight; row++) {
+        cells.push(
           <div
-            key={`${row}-${col}`}
+            key={`${col}-${row}`}
             className="grid-cell"
-            style={{ backgroundColor: gridCells[row][col].color }}
+            style={{
+              backgroundColor: gridCells[row][col].color,
+              padding: cellPadding,
+            }}
             onClick={(e) => handleCellClick(row, col, e)}
             onContextMenu={(e) => handleCellClick(row, col, e)}
           />
@@ -93,6 +127,7 @@ export const KnittingGrid = () => {
   };
 
   const cellSize = getCellSize();
+  const spacing = getSpacing();
 
   return (
     <>
@@ -127,8 +162,9 @@ export const KnittingGrid = () => {
             className="grid"
             style={{
               gridTemplateColumns: `repeat(${gridWidth}, ${cellSize}px)`,
-              gridTemplateRows: `repeat(${gridHeight}, ${cellSize}px)`,
-              direction: "rtl",
+              gridTemplateRows: `repeat(${gridHeight}, ${cellSize * 1.2}px)`,
+              gap: spacing.gap,
+              padding: spacing.padding,
             }}
           >
             {renderGridCells()}
@@ -137,6 +173,7 @@ export const KnittingGrid = () => {
         <ColorPicker
           selectedColor={selectedColor}
           onColorSelect={setSelectedColor}
+          onReset={handleReset}
         />
       </div>
     </>

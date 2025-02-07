@@ -27,7 +27,7 @@ a {
   margin: 0;
   left: 0;
   right: 0;
-  height: 10rem;
+  height: 13rem;
   border-bottom: 2px solid var(--border-color);
   display: flex;
   align-items: center;
@@ -54,7 +54,7 @@ a {
 
 .header-title {
   font-family: "Rubik Bubbles", system-ui;
-  font-size: clamp(4rem, 5vw, 4rem);
+  font-size: clamp(5rem, 5vw, 4rem);
   margin: 0;
   color: var(--color-primary);
   text-transform: uppercase;

@@ -44,3 +44,40 @@
 .color-button.selected {
   transform: scale(1.1);
 }
+
+.reset-grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+  padding: 0.5rem;
+}
+
+.reset-button {
+  background-color: white;
+  color: var(--color-primary);
+  padding: 0 0.5rem;
+  font-size: 1.3rem;
+  font-weight: bold;
+  border-radius: 4px;
+  box-shadow: var(--shadow-sm);
+  border: none;
+  outline: none;
+}
+
+.reset-button:hover {
+  color: black;
+  outline: none;
+  border: none;
+  box-shadow: var(--shadow-md);
+}
+
+.reset-button:focus {
+  outline: none;
+  border: none;
+}
+
+.reset-button:focus-visible {
+  outline: none;
+  border: none;
+}

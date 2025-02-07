@@ -28,11 +28,13 @@ const COLORS = [
 interface ColorPickerProps {
   onColorSelect: (color: string) => void;
   selectedColor: string;
+  onReset: () => void;
 }
 
 export const ColorPicker = ({
   onColorSelect,
   selectedColor,
+  onReset,
 }: ColorPickerProps) => {
   return (
     <div className="color-picker">
@@ -52,6 +54,11 @@ export const ColorPicker = ({
             ))}
           </div>
         ))}
+      </div>
+      <div className="reset-grid">
+        <button className="reset-button" onClick={onReset}>
+          reset
+        </button>
       </div>
     </div>
   );
