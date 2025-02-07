@@ -81,3 +81,20 @@
   outline: none;
   border: none;
 }
+
+.floating-color-ball {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  box-shadow: var(--shadow-sm);
+  transform: translate(-50%, -50%);
+  transition: opacity 0.2s ease;
+  opacity: 0.8;
+}
+
+.floating-color-ball.hidden {
+  opacity: 0;
+}

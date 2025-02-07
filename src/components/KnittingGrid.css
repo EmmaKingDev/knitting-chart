@@ -57,9 +57,9 @@
 .grid-cell:nth-child(20n + 17),
 .grid-cell:nth-child(20n + 19) {
   transform: skew(-10deg, 0);
-  border-radius: 5px 0px 5px 0px;
+  border-radius: 10px 0px 10px 0px;
   margin-right: -1px;
-  z-index: 1;
+  z-index: 0;
 }
 
 /* Target cells in even columns */
@@ -74,7 +74,7 @@
 .grid-cell:nth-child(20n + 18),
 .grid-cell:nth-child(20n + 20) {
   transform: skew(10deg, 0);
-  border-radius: 0px 5px 0px 5px;
+  border-radius: 0px 10px 0px 10px;
   margin-left: -1px;
   z-index: 1;
 }

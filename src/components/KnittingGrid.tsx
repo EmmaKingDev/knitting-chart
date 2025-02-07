@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ColorPicker } from "./ColorPicker";
 import "./KnittingGrid.css";
 
@@ -15,6 +15,25 @@ export const KnittingGrid = () => {
       .fill(null)
       .map(() => Array(20).fill({ color: "white" }))
   );
+  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
+  const [showFloatingBall, setShowFloatingBall] = useState(false);
+
+  // Handle cursor movement
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (showFloatingBall) {
+        setCursorPosition({ x: e.clientX, y: e.clientY });
+      }
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [showFloatingBall]);
+
+  const handleColorSelect = (color: string) => {
+    setSelectedColor(color);
+    setShowFloatingBall(true);
+  };
 
   const handleWidthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(e.target.value);
@@ -58,29 +77,33 @@ export const KnittingGrid = () => {
     setGridCells((prev) => {
       const newGrid = [...prev];
       newGrid[row] = [...newGrid[row]];
-      newGrid[row][col] = {
-        color: e.button === 2 ? "white" : selectedColor, // Right click (2) clears the color
-      };
+      if (e.button === 2) {
+        // Right click
+        newGrid[row][col] = { color: "white" };
+        setShowFloatingBall(false);
+      } else {
+        newGrid[row][col] = { color: selectedColor };
+      }
       return newGrid;
     });
   };
 
   const handleReset = () => {
-    // Reset all cells to white
     setGridCells(
       Array(gridHeight)
         .fill(null)
         .map(() => Array(gridWidth).fill({ color: "white" }))
     );
+    setShowFloatingBall(false);
   };
 
   const getCellSize = () => {
     if (gridWidth <= 10 && gridHeight <= 10) {
-      return 40; // Larger cells for small grids
+      return 40;
     } else if (gridWidth <= 30 && gridHeight <= 30) {
-      return 30; // Medium cells for medium grids
+      return 30;
     }
-    return 25; // Smaller cells for large grids
+    return 25;
   };
 
   const getSpacing = () => {
@@ -131,6 +154,16 @@ export const KnittingGrid = () => {
 
   return (
     <>
+      {showFloatingBall && (
+        <div
+          className="floating-color-ball"
+          style={{
+            backgroundColor: selectedColor,
+            left: cursorPosition.x,
+            top: cursorPosition.y,
+          }}
+        />
+      )}
       <div className="grid-controls">
         <div className="input-group">
           <label htmlFor="width">Width:</label>
@@ -172,7 +205,7 @@ export const KnittingGrid = () => {
         </div>
         <ColorPicker
           selectedColor={selectedColor}
-          onColorSelect={setSelectedColor}
+          onColorSelect={handleColorSelect}
           onReset={handleReset}
         />
       </div>
