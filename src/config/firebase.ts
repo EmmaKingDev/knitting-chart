@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-import { getAnalytics } from "firebase/analytics";
+import { getAnalytics, Analytics } from "firebase/analytics";
 
 // Your web app's Firebase configuration
 // Replace these with your Firebase project configuration
@@ -17,9 +17,19 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-export const analytics = getAnalytics(app);
+
+// Initialize Analytics with error handling
+let analytics: Analytics | null = null;
+try {
+  if (typeof window !== "undefined") {
+    analytics = getAnalytics(app);
+  }
+} catch (error) {
+  console.warn("Analytics failed to initialize:", error);
+}
+
 export const auth = getAuth(app);
 export const googleProvider = new GoogleAuthProvider();
 export const db = getFirestore(app);
-
+export { analytics };
 export default app;
