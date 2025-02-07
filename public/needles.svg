@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- First needle (top right to bottom left) -->
+  <line x1="24" y1="8" x2="8" y2="24" stroke="#7C6C77" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="25" cy="7" r="2.5" fill="#9F8B98"/>
+  <path d="M7 25L9 23L9.5 23.5L7.5 25.5L7 25Z" fill="#7C6C77"/>
+  
+  <!-- Second needle (top left to bottom right) -->
+  <line x1="8" y1="8" x2="24" y2="24" stroke="#7C6C77" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="7" cy="7" r="2.5" fill="#9F8B98"/>
+  <path d="M25 25L23 23L22.5 23.5L24.5 25.5L25 25Z" fill="#7C6C77"/>
+</svg> 
