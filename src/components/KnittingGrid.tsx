@@ -86,19 +86,19 @@ export const KnittingGrid = () => {
   const getSpacing = () => {
     if (gridWidth <= 10 && gridHeight <= 10) {
       return {
-        gap: "1px",
+        gap: "0.8px",
         padding: "15px",
         cellPadding: "15px",
       };
     } else if (gridWidth <= 32 && gridHeight <= 30) {
       return {
-        gap: "0.5px",
+        gap: "0.6px",
         padding: "10px",
         cellPadding: "10px",
       };
     }
     return {
-      gap: "0.2px",
+      gap: "0.1px",
       padding: "5px",
       cellPadding: "5px",
     };
