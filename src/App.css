@@ -26,6 +26,7 @@ body {
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
+  background-color: var(--background-main);
 }
 
 .main-content {
@@ -37,6 +38,7 @@ body {
   justify-content: center;
   padding: 2rem;
   box-sizing: border-box;
+  background-color: var(--background-main);
 }
 
 h1 {
@@ -113,4 +115,20 @@ h1:hover {
 
 .read-the-docs {
   color: #888;
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    padding: 1rem;
+    width: 100vw;
+    min-width: 100vw;
+    margin: 0;
+    overflow-x: hidden;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    padding: 0.5rem;
+  }
 }

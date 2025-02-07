@@ -31,6 +31,7 @@ a {
   border-bottom: 2px solid var(--border-color);
   display: flex;
   align-items: center;
+  overflow-x: hidden;
 }
 
 .nav-container {
@@ -132,19 +133,22 @@ button.nav-link {
     display: block;
   }
 
+  .header {
+    padding: 1rem 0;
+    height: auto;
+    min-height: 8rem;
+  }
+
+  .nav-container {
+    padding: 0 1rem;
+    width: 100%;
+    margin: 0;
+  }
+
   .mobile-nav {
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 250px;
-    height: 100vh;
-    background-color: white;
-    padding: 6rem 2rem 2rem;
-    gap: 1.5rem;
-    transition: right 0.3s ease;
-    box-shadow: var(--shadow-lg);
+    width: 100vw;
+    max-width: 250px;
+    right: -100vw;
   }
 
   .mobile-nav.open {
@@ -165,14 +169,15 @@ button.nav-link {
 
 @media (max-width: 480px) {
   .header {
-    padding: 1rem 0;
+    padding: 0.8rem 0;
+    min-height: 6rem;
   }
 
   .nav-container {
-    padding: 0 1rem;
+    padding: 0 0.8rem;
   }
 
   .header-title {
-    font-size: clamp(1.5rem, 8vw, 2rem);
+    font-size: clamp(2rem, 8vw, 2.5rem);
   }
 }
