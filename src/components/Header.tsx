@@ -16,7 +16,7 @@ export const Header = () => {
         {/* Desktop Navigation */}
         <div className="nav-group desktop-nav">
           <a href="/about" className="nav-link">
-            ABOUT
+            A
           </a>
         </div>
 
@@ -25,11 +25,11 @@ export const Header = () => {
         <div className="nav-group desktop-nav">
           {user ? (
             <button onClick={signOut} className="nav-link">
-              LOGOUT
+              L
             </button>
           ) : (
             <button onClick={signInWithGoogle} className="nav-link">
-              LOGIN
+              L
             </button>
           )}
         </div>

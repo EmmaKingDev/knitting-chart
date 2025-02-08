@@ -6,6 +6,12 @@ interface GridCell {
   color: string;
 }
 
+interface PresetDimension {
+  width: number;
+  height: number;
+  label: string;
+}
+
 export const KnittingGrid = () => {
   const [gridWidth, setGridWidth] = useState(20);
   const [gridHeight, setGridHeight] = useState(20);
@@ -19,6 +25,14 @@ export const KnittingGrid = () => {
   const [showFloatingBall, setShowFloatingBall] = useState(false);
   const [isMouseDown, setIsMouseDown] = useState(false);
   const [isRightClick, setIsRightClick] = useState(false);
+
+  const presetDimensions: PresetDimension[] = [
+    { width: 12, height: 12, label: "12×12" },
+    { width: 14, height: 14, label: "14×14" },
+    { width: 16, height: 16, label: "16×16" },
+    { width: 22, height: 22, label: "22×22" },
+    { width: 30, height: 30, label: "30×30" },
+  ];
 
   // Handle cursor movement
   useEffect(() => {
@@ -59,17 +73,20 @@ export const KnittingGrid = () => {
     if (!isNaN(value)) {
       const newWidth = Math.max(1, Math.min(value, 60));
       setGridWidth(newWidth);
-      setGridCells((prev) =>
-        prev.map((row) => {
-          if (newWidth > row.length) {
-            return [
-              ...row,
-              ...Array(newWidth - row.length).fill({ color: "white" }),
-            ];
-          }
-          return row.slice(0, newWidth);
-        })
-      );
+
+      setGridCells((prev) => {
+        const widthDiff = newWidth - prev[0].length;
+        if (widthDiff <= 0) {
+          // If reducing width, keep the rightmost cells
+          return prev.map((row) => row.slice(-newWidth));
+        }
+
+        // Add new cells to the left
+        return prev.map((row) => {
+          const newCells = Array(widthDiff).fill({ color: "white" });
+          return [...newCells, ...row];
+        });
+      });
     }
   };
 
@@ -78,14 +95,19 @@ export const KnittingGrid = () => {
     if (!isNaN(value)) {
       const newHeight = Math.max(1, Math.min(value, 40));
       setGridHeight(newHeight);
+
       setGridCells((prev) => {
-        if (newHeight > prev.length) {
-          const newRows = Array(newHeight - prev.length)
-            .fill(null)
-            .map(() => Array(gridWidth).fill({ color: "white" }));
-          return [...prev, ...newRows];
+        const heightDiff = newHeight - prev.length;
+        if (heightDiff <= 0) {
+          // If reducing height, keep the bottom rows
+          return prev.slice(-newHeight);
         }
-        return prev.slice(0, newHeight);
+
+        // Add new rows to the top
+        const newRows = Array(heightDiff)
+          .fill(null)
+          .map(() => Array(gridWidth).fill({ color: "white" }));
+        return [...newRows, ...prev];
       });
     }
   };
@@ -127,6 +149,16 @@ export const KnittingGrid = () => {
         .map(() => Array(gridWidth).fill({ color: "white" }))
     );
     setShowFloatingBall(false);
+  };
+
+  const handlePresetClick = (width: number, height: number) => {
+    setGridWidth(width);
+    setGridHeight(height);
+    setGridCells(
+      Array(height)
+        .fill(null)
+        .map(() => Array(width).fill({ color: "white" }))
+    );
   };
 
   const getCellSize = () => {
@@ -198,27 +230,40 @@ export const KnittingGrid = () => {
         />
       )}
       <div className="grid-controls">
-        <div className="input-group">
-          <label htmlFor="width">Width:</label>
-          <input
-            type="number"
-            id="width"
-            value={gridWidth}
-            onChange={handleWidthChange}
-            min="1"
-            max="60"
-          />
+        <div className="dimension-controls">
+          <div className="input-group">
+            <label htmlFor="width">Width:</label>
+            <input
+              type="number"
+              id="width"
+              value={gridWidth}
+              onChange={handleWidthChange}
+              min="1"
+              max="60"
+            />
+          </div>
+          <div className="input-group">
+            <label htmlFor="height">Height:</label>
+            <input
+              type="number"
+              id="height"
+              value={gridHeight}
+              onChange={handleHeightChange}
+              min="1"
+              max="40"
+            />
+          </div>
         </div>
-        <div className="input-group">
-          <label htmlFor="height">Height:</label>
-          <input
-            type="number"
-            id="height"
-            value={gridHeight}
-            onChange={handleHeightChange}
-            min="1"
-            max="40"
-          />
+        <div className="preset-buttons">
+          {presetDimensions.map((preset) => (
+            <button
+              key={preset.label}
+              className="preset-button"
+              onClick={() => handlePresetClick(preset.width, preset.height)}
+            >
+              {preset.label}
+            </button>
+          ))}
         </div>
       </div>
 

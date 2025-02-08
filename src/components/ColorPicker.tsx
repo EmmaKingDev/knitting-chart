@@ -56,7 +56,7 @@ export const ColorPicker = ({
         ))}
       </div>
       <div className="reset-grid">
-        <button className="reset-button" onClick={onReset}>
+        <button className="preset-button" onClick={onReset}>
           reset
         </button>
       </div>

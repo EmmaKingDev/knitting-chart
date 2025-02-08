@@ -1,8 +1,8 @@
 :root {
   --font-heading: "Rubik Bubbles", system-ui;
-  --font-main: "Zain", sans-serif;
-  --font-mono: "IBM Plex Mono", monospace;
-  --font-sans: "IBM Plex Sans", sans-serif;
+  --font-main: "Poppins", sans-serif;
+  --font-mono: "Poppins", sans-serif;
+  --font-sans: "Poppins", sans-serif;
 
   --fw-light: 300;
   --fw-regular: 400;
