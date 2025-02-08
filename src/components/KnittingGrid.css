@@ -240,3 +240,16 @@
   transform: translateY(0);
   outline: none;
 }
+
+.footer-link {
+  font-size: 0.8rem;
+  text-decoration: none;
+  color: var(--color-accent);
+}
+
+.footer-link:hover {
+  font-size: 0.8rem;
+  text-decoration: none;
+  color: black;
+  transition: all 0.2s ease;
+}
